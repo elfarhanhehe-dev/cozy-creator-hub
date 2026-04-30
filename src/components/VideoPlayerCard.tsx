@@ -33,6 +33,11 @@ export const VideoPlayerCard = ({ videoId, videoUrl, title, description, views }
           onPlay={() => setPlaying(true)}
           onPause={() => setPlaying(false)}
         />
+        {videoId && (
+          <div className="absolute right-3 top-3 z-20" onClick={(e) => e.stopPropagation()}>
+            <ShareMenu videoId={videoId} title={title} />
+          </div>
+        )}
         {!playing && (
           <>
             <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/10 to-ink/30" />
