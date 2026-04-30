@@ -231,10 +231,14 @@ const MyVideos = () => {
                           <span>{v.views.toLocaleString()} views</span>
                         </div>
                       </div>
-                      <div className="flex gap-2">
+                      <div className="flex flex-wrap gap-2">
                         <Button size="sm" variant="outline" className="rounded-full" onClick={() => startEdit(v)}>
                           <Pencil className="mr-1 h-4 w-4" />
                           Edit
+                        </Button>
+                        <Button size="sm" variant="outline" className="rounded-full" onClick={() => downloadVideo(v)}>
+                          <Download className="mr-1 h-4 w-4" />
+                          Download
                         </Button>
                         <AlertDialog>
                           <AlertDialogTrigger asChild>
