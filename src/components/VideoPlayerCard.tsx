@@ -1,14 +1,16 @@
 import { Play, Eye } from "lucide-react";
 import { useRef, useState } from "react";
+import { ShareMenu } from "./ShareMenu";
 
 interface Props {
+  videoId?: string;
   videoUrl: string;
   title: string;
   description?: string | null;
   views: number;
 }
 
-export const VideoPlayerCard = ({ videoUrl, title, description, views }: Props) => {
+export const VideoPlayerCard = ({ videoId, videoUrl, title, description, views }: Props) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
 
