@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { toast } from "sonner";
 import { Pencil, Trash2, Save, X, Eye, Download } from "lucide-react";
+import { ShareMenu } from "@/components/ShareMenu";
 
 interface Video {
   id: string;
