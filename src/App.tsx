@@ -8,6 +8,7 @@ import NotFound from "./pages/NotFound.tsx";
 import Auth from "./pages/Auth.tsx";
 import Upload from "./pages/Upload.tsx";
 import MyVideos from "./pages/MyVideos.tsx";
+import Watch from "./pages/Watch.tsx";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +23,7 @@ const App = () => (
           <Route path="/auth" element={<Auth />} />
           <Route path="/upload" element={<Upload />} />
           <Route path="/my-videos" element={<MyVideos />} />
+          <Route path="/v/:id" element={<Watch />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
