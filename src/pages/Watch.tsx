@@ -3,7 +3,9 @@ import { Link, useParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { SiteHeader } from "@/components/SiteHeader";
 import { ShareMenu } from "@/components/ShareMenu";
-import { Eye, ArrowLeft } from "lucide-react";
+import { Eye, ArrowLeft, Download } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { downloadVideoFromUrl } from "@/lib/downloadVideo";
 
 interface Video {
   id: string;
@@ -77,8 +79,15 @@ const Watch = () => {
               {video.description && (
                 <p className="mt-4 whitespace-pre-wrap text-ink/80">{video.description}</p>
               )}
-              <div className="mt-6">
+              <div className="mt-6 flex flex-wrap gap-3">
                 <ShareMenu videoId={video.id} title={video.title} variant="button" />
+                <Button
+                  variant="outline"
+                  onClick={() => downloadVideoFromUrl(video.video_url, video.title)}
+                  className="gap-2"
+                >
+                  <Download className="h-4 w-4" /> Download
+                </Button>
               </div>
             </div>
           </article>
