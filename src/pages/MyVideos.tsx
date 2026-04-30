@@ -19,7 +19,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { toast } from "sonner";
-import { Pencil, Trash2, Save, X, Eye } from "lucide-react";
+import { Pencil, Trash2, Save, X, Eye, Download } from "lucide-react";
 
 interface Video {
   id: string;
