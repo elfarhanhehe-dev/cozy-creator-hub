@@ -115,6 +115,34 @@ const MyVideos = () => {
     toast.success("Video deleted");
   };
 
+  const downloadVideo = async (v: Video) => {
+    try {
+      let blob: Blob;
+      let ext = "mp4";
+      if (v.storage_path) {
+        const { data, error } = await supabase.storage.from("videos").download(v.storage_path);
+        if (error) throw error;
+        blob = data;
+        ext = v.storage_path.split(".").pop() || "mp4";
+      } else {
+        const res = await fetch(v.video_url);
+        if (!res.ok) throw new Error("Failed to fetch video");
+        blob = await res.blob();
+        ext = v.video_url.split(".").pop()?.split("?")[0] || "mp4";
+      }
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${v.title.replace(/[^\w\-]+/g, "_") || "video"}.${ext}`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    } catch (err: any) {
+      toast.error(err.message ?? "Download failed");
+    }
+  };
+
   if (authLoading) return null;
 
   return (
