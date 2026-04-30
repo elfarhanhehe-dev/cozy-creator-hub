@@ -65,6 +65,7 @@ const Index = () => {
             <div className="pointer-events-none absolute -bottom-12 -right-8 h-40 w-40 rounded-full bg-sage/40 blur-3xl" />
             {videos[0] ? (
               <VideoPlayerCard
+                videoId={videos[0].id}
                 videoUrl={videos[0].video_url}
                 title={videos[0].title}
                 description={videos[0].description}
@@ -108,6 +109,7 @@ const Index = () => {
               {videos.slice(1).map((v) => (
                 <VideoPlayerCard
                   key={v.id}
+                  videoId={v.id}
                   videoUrl={v.video_url}
                   title={v.title}
                   description={v.description}

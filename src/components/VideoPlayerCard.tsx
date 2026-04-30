@@ -1,14 +1,16 @@
 import { Play, Eye } from "lucide-react";
 import { useRef, useState } from "react";
+import { ShareMenu } from "./ShareMenu";
 
 interface Props {
+  videoId?: string;
   videoUrl: string;
   title: string;
   description?: string | null;
   views: number;
 }
 
-export const VideoPlayerCard = ({ videoUrl, title, description, views }: Props) => {
+export const VideoPlayerCard = ({ videoId, videoUrl, title, description, views }: Props) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
 
@@ -31,6 +33,11 @@ export const VideoPlayerCard = ({ videoUrl, title, description, views }: Props) 
           onPlay={() => setPlaying(true)}
           onPause={() => setPlaying(false)}
         />
+        {videoId && (
+          <div className="absolute right-3 top-3 z-20" onClick={(e) => e.stopPropagation()}>
+            <ShareMenu videoId={videoId} title={title} />
+          </div>
+        )}
         {!playing && (
           <>
             <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/10 to-ink/30" />
