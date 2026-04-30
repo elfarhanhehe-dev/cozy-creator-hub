@@ -1,6 +1,7 @@
-import { Play, Eye } from "lucide-react";
+import { Play, Eye, Download } from "lucide-react";
 import { useRef, useState } from "react";
 import { ShareMenu } from "./ShareMenu";
+import { downloadVideoFromUrl } from "@/lib/downloadVideo";
 
 interface Props {
   videoId?: string;
@@ -33,11 +34,17 @@ export const VideoPlayerCard = ({ videoId, videoUrl, title, description, views }
           onPlay={() => setPlaying(true)}
           onPause={() => setPlaying(false)}
         />
-        {videoId && (
-          <div className="absolute right-3 top-3 z-20" onClick={(e) => e.stopPropagation()}>
-            <ShareMenu videoId={videoId} title={title} />
-          </div>
-        )}
+        <div className="absolute right-3 top-3 z-20 flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
+          <button
+            type="button"
+            onClick={() => downloadVideoFromUrl(videoUrl, title)}
+            aria-label="Download video"
+            className="flex h-9 w-9 items-center justify-center rounded-full bg-background/90 text-ink shadow-card hover:bg-background"
+          >
+            <Download className="h-4 w-4" />
+          </button>
+          {videoId && <ShareMenu videoId={videoId} title={title} />}
+        </div>
         {!playing && (
           <>
             <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/10 to-ink/30" />
