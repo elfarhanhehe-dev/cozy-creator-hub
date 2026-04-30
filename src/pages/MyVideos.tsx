@@ -241,6 +241,7 @@ const MyVideos = () => {
                           <Download className="mr-1 h-4 w-4" />
                           Download
                         </Button>
+                        <ShareMenu videoId={v.id} title={v.title} variant="button" />
                         <AlertDialog>
                           <AlertDialogTrigger asChild>
                             <Button size="sm" variant="ghost" className="rounded-full text-destructive hover:text-destructive">
