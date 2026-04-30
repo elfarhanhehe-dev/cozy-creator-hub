@@ -44,7 +44,7 @@ export const VideoPlayerCard = ({ videoId, videoUrl, title, description, views }
           className="h-full w-full object-cover"
           playsInline
           preload="metadata"
-          onPlay={() => setPlaying(true)}
+          onPlay={handlePlay}
           onPause={() => setPlaying(false)}
         />
         <div className="absolute right-3 top-3 z-20 flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
