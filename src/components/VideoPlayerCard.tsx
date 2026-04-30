@@ -48,6 +48,7 @@ export const VideoPlayerCard = ({ videoId, videoUrl, title, description, views }
           onPause={() => setPlaying(false)}
         />
         <div className="absolute right-3 top-3 z-20 flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
+          {videoId && <LikeButton videoId={videoId} />}
           <button
             type="button"
             onClick={() => downloadVideoFromUrl(videoUrl, title)}
@@ -77,7 +78,7 @@ export const VideoPlayerCard = ({ videoId, videoUrl, title, description, views }
               )}
               <div className="mt-2 flex items-center gap-1 text-xs text-background/70">
                 <Eye className="h-3.5 w-3.5" />
-                <span>{views.toLocaleString()} views</span>
+                <span>{viewCount.toLocaleString()} views</span>
               </div>
             </div>
           </>
