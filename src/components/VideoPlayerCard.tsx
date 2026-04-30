@@ -1,7 +1,9 @@
 import { Play, Eye, Download } from "lucide-react";
 import { useRef, useState } from "react";
 import { ShareMenu } from "./ShareMenu";
+import { LikeButton } from "./LikeButton";
 import { downloadVideoFromUrl } from "@/lib/downloadVideo";
+import { supabase } from "@/integrations/supabase/client";
 
 interface Props {
   videoId?: string;
@@ -14,12 +16,23 @@ interface Props {
 export const VideoPlayerCard = ({ videoId, videoUrl, title, description, views }: Props) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
+  const [viewCount, setViewCount] = useState(views);
+  const [counted, setCounted] = useState(false);
 
   const togglePlay = () => {
     const v = videoRef.current;
     if (!v) return;
     if (v.paused) v.play();
     else v.pause();
+  };
+
+  const handlePlay = async () => {
+    setPlaying(true);
+    if (!counted && videoId) {
+      setCounted(true);
+      setViewCount((c) => c + 1);
+      await supabase.rpc("increment_video_views", { _video_id: videoId });
+    }
   };
 
   return (
