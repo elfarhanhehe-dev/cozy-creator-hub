@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { SiteHeader } from "@/components/SiteHeader";
 import { ShareMenu } from "@/components/ShareMenu";
+import { LikeButton } from "@/components/LikeButton";
 import { Eye, ArrowLeft, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { downloadVideoFromUrl } from "@/lib/downloadVideo";
@@ -32,9 +33,9 @@ const Watch = () => {
         .maybeSingle();
       if (error || !data) setNotFound(true);
       else {
-        setVideo(data);
-        // fire-and-forget view count bump
-        supabase.from("videos").update({ views: (data.views ?? 0) + 1 }).eq("id", id).then();
+        setVideo({ ...data, views: (data.views ?? 0) + 1 });
+        // fire-and-forget view count bump (works for anon users via SECURITY DEFINER)
+        supabase.rpc("increment_video_views", { _video_id: id }).then();
       }
       setLoading(false);
     };
@@ -80,6 +81,7 @@ const Watch = () => {
                 <p className="mt-4 whitespace-pre-wrap text-ink/80">{video.description}</p>
               )}
               <div className="mt-6 flex flex-wrap gap-3">
+                <LikeButton videoId={video.id} variant="button" />
                 <ShareMenu videoId={video.id} title={video.title} variant="button" />
                 <Button
                   variant="outline"

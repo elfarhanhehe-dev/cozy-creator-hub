@@ -14,6 +14,38 @@ export type Database = {
   }
   public: {
     Tables: {
+      video_likes: {
+        Row: {
+          anon_id: string | null
+          created_at: string
+          id: string
+          user_id: string | null
+          video_id: string
+        }
+        Insert: {
+          anon_id?: string | null
+          created_at?: string
+          id?: string
+          user_id?: string | null
+          video_id: string
+        }
+        Update: {
+          anon_id?: string | null
+          created_at?: string
+          id?: string
+          user_id?: string | null
+          video_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "video_likes_video_id_fkey"
+            columns: ["video_id"]
+            isOneToOne: false
+            referencedRelation: "videos"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       videos: {
         Row: {
           created_at: string
@@ -52,7 +84,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      increment_video_views: { Args: { _video_id: string }; Returns: undefined }
     }
     Enums: {
       [_ in never]: never
