@@ -26,6 +26,7 @@ export const SiteHeader = () => {
       <nav className="hidden items-center gap-8 text-sm font-medium text-muted-foreground sm:flex">
         <Link to="/" className="hover:text-ink">Discover</Link>
         <Link to="/upload" className="hover:text-ink">Upload</Link>
+        {user && <Link to="/my-videos" className="hover:text-ink">My videos</Link>}
       </nav>
       <div className="flex items-center gap-2">
         {user ? (
